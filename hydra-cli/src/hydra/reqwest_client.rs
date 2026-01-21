@@ -137,13 +137,12 @@ impl HydraClient for Client {
     }
 
     fn jobset_eval(&self, project_name: &str, jobset_name: &str) -> Result<(), ClientError> {
-        let request_url = format!(
-            "{}/api/push?jobsets={}:{}",
-            &self.host, project_name, jobset_name
-        );
+        let request_url = format!("{}/api/push", &self.host);
+        let jobset = format!("{}:{}", project_name, jobset_name);
         let res = self
             .client
-            .put(&request_url)
+            .post(&request_url)
+            .query(&[("jobsets", jobset)])
             .header(REFERER, self.host.as_str())
             .send()?;
 
