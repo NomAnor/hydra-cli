@@ -1,5 +1,5 @@
 use crate::hydra::client::{Build, Eval};
-use chrono::NaiveDateTime;
+use chrono::DateTime;
 
 pub fn evaluation_pretty_print(e: &Eval) {
     for (k, v) in &e.jobsetevalinputs {
@@ -20,7 +20,7 @@ pub fn evaluation_pretty_print(e: &Eval) {
 pub fn build_pretty_print(b: &Build) {
     println!("{:14} {}/{}/{}", "Job", b.project, b.jobset, b.job);
 
-    match NaiveDateTime::from_timestamp_opt(b.stoptime, 0) {
+    match DateTime::from_timestamp(b.stoptime, 0) {
         Some(t) => println!(
             "{:14} {}",
             "Finished at",
