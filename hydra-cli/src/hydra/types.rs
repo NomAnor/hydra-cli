@@ -28,6 +28,8 @@ pub struct Project {
     pub owner: String,
     pub displayname: String,
     pub jobsets: Vec<String>,
+    #[serde(deserialize_with = "bool_from_int")]
+    pub enable_dynamic_run_command: bool,
 }
 
 struct BoolFromInt {}
