@@ -178,6 +178,22 @@ fn main() {
                     Arg::with_name("jobset")
                         .required(true)
                         .help("The jobset to evaluate"),
+                )
+                .arg(
+                    Arg::with_name("user")
+                        .takes_value(true)
+                        .required(true)
+                        .long("user")
+                        .env("HYDRA_USER")
+                        .help("A user name"),
+                )
+                .arg(
+                    Arg::with_name("password")
+                        .takes_value(true)
+                        .required(true)
+                        .long("password")
+                        .env("HYDRA_PASSWORD")
+                        .help("A user password"),
                 ),
         )
         .subcommand(
@@ -269,6 +285,8 @@ fn main() {
             &client,
             args.value_of("project").unwrap(),
             args.value_of("jobset").unwrap(),
+            args.value_of("user").unwrap(),
+            args.value_of("password").unwrap(),
         ),
 
         ("jobset-wait", Some(args)) => jobset_wait::run(
